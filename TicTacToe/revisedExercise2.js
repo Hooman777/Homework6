@@ -35,7 +35,7 @@ const billboard = document.getElementById ('score');
 const billboard2 = document.getElementById ('score2');
 canvas.width = 500;
 canvas.height = 500;
-// game._isXTurn = !!Math.floor(Math.random() * 2);
+game._isXTurn = !!Math.floor(Math.random() * 2);
 
 // *****************************************************************************
 const starter = function (inp) {
@@ -484,18 +484,6 @@ const statusOfGame = function (_board) {
 
 }
 // End of statusOfGame function *****************************************************
-
-// Defining nextMove function **************************************************
-const nextMove = function (_board, _isX) {
-
-    const _status = statusOfGame (_board);
-
-    if (_status._decision._makeAction != 0 && _status._decision._makeAction != 7) {
-        return _status._suggestion;
-    }
-
-}
-// End of next move function ***************************************************
 // reset ***********************************************************************
 const reset = function () {
     for (var i = 0; i < 3; i++) {
@@ -504,6 +492,25 @@ const reset = function () {
         }
     }
 }
+// Defining nextMove function **************************************************
+const nextMove = function (_board, _isX) {
+    if (!game._isXTurn) {
+        reset();
+        const i = Math.floor(3 * Math.random());
+        const j = Math.floor(3 * Math.random());
+        game._isXTurn = !game._isXTurn;
+        return `[${i}, ${j}]`;
+    } else {
+        const _status = statusOfGame (_board);
+
+        if (_status._decision._makeAction != 0 && _status._decision._makeAction != 7) {
+            return _status._suggestion;
+        }
+    }
+
+}
+// End of next move function ***************************************************
+
 // Defining findWinner *********************************************************
 const findWinnerOrTie = function (_board) {
     const _status = statusOfGame (_board);
@@ -596,13 +603,12 @@ render(game._board);
 // End of Render function ******************************************************
 
 // Performing mouse event ******************************************************
-// if (!game._isXTurn) {
-//     render(game._board);
-//     makeMove (game._board, nextMove(game._board, false), false);
-//     render(game._board);
-//     tack.play();
-//     game._isXTurn = !game._isXTurn;
-// }
+if (!game._isXTurn) {
+    render(game._board);
+    makeMove (game._board, nextMove(game._board, false), false);
+    render(game._board);
+    tack.play();
+}
 const getMousePos = function (canvas, evt) {
     var rect = canvas.getBoundingClientRect();
     return {
