@@ -35,7 +35,7 @@ const billboard = document.getElementById ('score');
 const billboard2 = document.getElementById ('score2');
 canvas.width = 500;
 canvas.height = 500;
-game._isXTurn = !!Math.floor(Math.random() * 2);
+// game._isXTurn = !!Math.floor(Math.random() * 2);
 
 // *****************************************************************************
 const starter = function (inp) {
@@ -494,18 +494,18 @@ const reset = function () {
 }
 // Defining nextMove function **************************************************
 const nextMove = function (_board, _isX) {
-    if (!game._isXTurn) {
-        reset();
-        const i = Math.floor(3 * Math.random());
-        const j = Math.floor(3 * Math.random());
-        game._isXTurn = !game._isXTurn;
-        return `[${i}, ${j}]`;
-    } else {
+    // if (!game._isXTurn) {
+    //     reset();
+    //     const i = Math.floor(3 * Math.random());
+    //     const j = Math.floor(3 * Math.random());
+    //     game._isXTurn = !game._isXTurn;
+    //     return `[${i}, ${j}]`;
+    // } else {
         const _status = statusOfGame (_board);
 
         if (_status._decision._makeAction != 0 && _status._decision._makeAction != 7) {
             return _status._suggestion;
-        }
+        // }
     }
 
 }
